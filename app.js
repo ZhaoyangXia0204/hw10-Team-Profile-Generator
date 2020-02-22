@@ -59,43 +59,43 @@ function questions() {
             name: "oneMore",
             message: "Would you like to add another employee?"
         }
-    ])
-
-}
-questions().then(function (answers) {
-    if (answers.employeeRole === 'Manager') {
-        let nM = new Manager(answers.theName, answers.employeeID, answers.employeeEmail, answers.officeNumber)
-        nM.title = nM.getRole()
-        employee.push(nM);
-    } else if (answers.employeeRole === 'Engineer') {
-        let nE = new Engineer(answers.theName, answers.employeeID, answers.employeeEmail, answers.gitHub)
-        nE.title = nE.getRole()
-        employee.push(nE);
-    } else {
-        let nI = new Intern(answers.theName, answers.employeeID, answers.employeeEmail, answers.school)
-        nI.title = nI.getRole()
-        employee.push(nI);
-    }
-
-    if (answers.oneMore === true) {
-        return questions()
-    }
-   
-  
-console.log(employee)
-
-
-    
-
-    fs.writeFileSync("./outputs/team.html", render(employee), function (err) {
-        if (err) {
-            return console.log("failed")
+    ]).then(function (answers) {
+        if (answers.employeeRole === 'Manager') {
+            let nM = new Manager(answers.theName, answers.employeeID, answers.employeeEmail, answers.officeNumber)
+            nM.title = nM.getRole()
+            employee.push(nM);
+        } else if (answers.employeeRole === 'Engineer') {
+            let nE = new Engineer(answers.theName, answers.employeeID, answers.employeeEmail, answers.gitHub)
+            nE.title = nE.getRole()
+            employee.push(nE);
+        } else {
+            let nI = new Intern(answers.theName, answers.employeeID, answers.employeeEmail, answers.school)
+            nI.title = nI.getRole()
+            employee.push(nI);
         }
-
+    
+        if (answers.oneMore === true) {
+            return questions()
+        }
+       
+      
+    console.log(employee)
+    
+    
+        
+    
+        fs.writeFileSync("./outputs/team.html", render(employee), function (err) {
+            if (err) {
+                return console.log("failed")
+            }
+    
+        })
+    
     })
 
-})
+}
 
 
+questions();
 
 
